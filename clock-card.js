@@ -7,7 +7,7 @@ class ClockCard extends Polymer.Element {
           cursor: pointer;
         }
         .content {
-          padding: 24px 16px 16px;
+          padding: 8px 8px 8px;
         }
         .name {
           margin-left: 16px;
@@ -15,30 +15,20 @@ class ClockCard extends Polymer.Element {
           color: var(--secondary-text-color);
         }
         .now {
-          display: flex;
           justify-content: space-between;
           align-items: center;
+		  text-align: center;
           flex-wrap: wrap;
         }
         .main {
-          display: flex;
+          display: inline-block;
           align-items: center;
-          margin-right: 32px;
         }
         .main .clock {
-          font-size: 52px;
+          font-size: 105px;
+		  font-weight: bold;
           line-height: 1em;
           position: relative;
-        }
-        .date {
-          font-family: var(--paper-font-headline_-_font-family);
-          -webkit-font-smoothing: var(--paper-font-headline_-_-webkit-font-smoothing);
-          font-size: var(--paper-font-headline_-_font-size);
-          font-weight: var(--paper-font-headline_-_font-weight);
-          letter-spacing: var(--paper-font-headline_-_letter-spacing);
-          line-height: var(--paper-font-headline_-_line-height);
-          text-rendering: var(--paper-font-common-expensive-kerning_-_text-rendering);
-          opacity: var(--dark-primary-opacity);
         }
       </style>
       <ha-card>
@@ -46,9 +36,6 @@ class ClockCard extends Polymer.Element {
           <div class="now">
             <div class="main">
               <div class="clock" id="time"></div>
-            </div>
-            <div class="date">
-				      <div id="date"></div>
             </div>
           </div>
         </div>
@@ -65,10 +52,9 @@ class ClockCard extends Polymer.Element {
   ready() {
     super.ready();
     this.time = this.$.time;
-    this.date = this.$.date;
     
     this._updateTime();
-    setInterval(() => this._updateTime(), 500);
+    setInterval(() => this._updateTime(), 5000);
   }
   
   setConfig(config) {
@@ -80,8 +66,7 @@ class ClockCard extends Polymer.Element {
   }
 
   _updateTime(force = false) {
-    this.time.innerHTML = moment().format('HH:mm:ss');
-    this.date.innerHTML = moment().format('ddd DD/MM/YYYY');
+    this.time.innerHTML = moment().format('HH:mm');
   }
 
   // The height of your card. Home Assistant uses this to automatically
